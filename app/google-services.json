@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "534950252938",
+    "firebase_url": "https://baochay-7d403-default-rtdb.firebaseio.com",
+    "project_id": "baochay-7d403",
+    "storage_bucket": "baochay-7d403.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534950252938:android:b39a9b915792c0ed353873",
+        "android_client_info": {
+          "package_name": "com.example.baochay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "534950252938-gqip988gh7fg0d8phl8fes2vpn4afkpb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP3DJ479hsM3EuvKqLPgtk9rIYxosxjXI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "534950252938-gqip988gh7fg0d8phl8fes2vpn4afkpb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
