@@ -3,7 +3,9 @@ package com.example.baochay;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -15,8 +17,9 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView tvNhietdo, tvNongdokk, tvTialua;
+    TextView tvNhietdo, tvNongdokk, tvTialua,tvTinhtrangchay;
     Button btnTatchuong;
+    Float Chuong;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
         tvNhietdo=(TextView) findViewById(R.id.tv_nhietdo);
         tvNongdokk=(TextView) findViewById(R.id.tv_nongdokk);
         tvTialua=(TextView) findViewById(R.id.tv_tialua);
-
+        tvTinhtrangchay=(TextView) findViewById(R.id.tv_tinhtrang);
+        btnTatchuong=(Button)findViewById(R.id.btn_chuong);
         //
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference();
@@ -74,8 +78,28 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        databaseReference.child("Baochay/TinhTrangChay").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Float tinhtrangchay = snapshot.getValue(Float.class);
+                if (tinhtrangchay==1) {
+                    tvTinhtrangchay.setText("Báo cháy");
+                    btnTatchuong.setVisibility(View.VISIBLE);
+                    tvTinhtrangchay.setBackgroundColor(Color.parseColor("#FF3333"));
+
+                }
+                else {
+                    tvTinhtrangchay.setText("Bình thường");
+                    btnTatchuong.setVisibility(View.INVISIBLE);
+                    tvTinhtrangchay.setBackgroundColor(Color.parseColor("#00CC66"));
+
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
-
-
 }
