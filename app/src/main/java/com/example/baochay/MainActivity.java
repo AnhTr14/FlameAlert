@@ -2,7 +2,11 @@ package com.example.baochay;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -17,9 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int NOTIFICATION_ID =1 ;
     TextView tvNhietdo, tvNongdokk, tvTialua,tvTinhtrangchay;
-    Button btnTatchuong;
-    Float Chuong;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         tvNongdokk=(TextView) findViewById(R.id.tv_nongdokk);
         tvTialua=(TextView) findViewById(R.id.tv_tialua);
         tvTinhtrangchay=(TextView) findViewById(R.id.tv_tinhtrang);
-        btnTatchuong=(Button)findViewById(R.id.btn_chuong);
+
         //
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference();
@@ -84,13 +87,12 @@ public class MainActivity extends AppCompatActivity {
                 Float tinhtrangchay = snapshot.getValue(Float.class);
                 if (tinhtrangchay==1) {
                     tvTinhtrangchay.setText("Báo cháy");
-                    btnTatchuong.setVisibility(View.VISIBLE);
                     tvTinhtrangchay.setBackgroundColor(Color.parseColor("#FF3333"));
+                    GuiThongBao();
 
                 }
                 else {
                     tvTinhtrangchay.setText("Bình thường");
-                    btnTatchuong.setVisibility(View.INVISIBLE);
                     tvTinhtrangchay.setBackgroundColor(Color.parseColor("#00CC66"));
 
                 }
@@ -100,6 +102,16 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+    private void GuiThongBao(){
+        Notification notification = new NotificationCompat.Builder(this,Myapp.CHANNEL_ID)
+                .setContentTitle("Báo cháy")
+                .setContentText("Cảnh báo cháy")
+                .setSmallIcon(R.drawable.ic_fire)
+                .setColor(getResources().getColor(R.color.red))
+                .build();
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(NOTIFICATION_ID, notification);
 
     }
 }
